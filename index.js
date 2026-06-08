@@ -6,6 +6,9 @@ const BASE = "https://fsa-crud-2aa9294fe819.herokuapp.com/api";
 const COHORT = "/2604";
 const API = BASE + COHORT;
 
+//try: fetch all events from API + "/events"
+//parse the response as JSON
+//store result data in events
 async function getEvents() {
   try {
     const response = await fetch(API + "/events");
@@ -17,6 +20,9 @@ async function getEvents() {
   }
 }
 
+//try: fetch a single event from API +"/events/" + id
+//parse the response as JSON
+//store result data in selectedEvents
 async function getEvent(id) {
   try {
     const response = await fetch(API + "/events/" + id);
@@ -27,7 +33,14 @@ async function getEvent(id) {
     console.error(e);
   }
 }
+// === Components ===
 
+//create a list item element
+//If even is the currently selected event:
+//mark list item as "selected"
+//set list item content to a link showing event.name
+//ON click: call getEvent(event.id)
+//return list item
 function EventListItem(event) {
   const $li = document.createElement("li");
 
@@ -42,6 +55,10 @@ function EventListItem(event) {
   return $li;
 }
 
+//create an unordered list element
+//For each even in events: create an EventListItem
+//place all list items into the unordered list
+//return unordered list
 function EventList() {
   const $ul = document.createElement("ul");
   $ul.classList.add("events");
@@ -51,6 +68,10 @@ function EventList() {
   return $ul;
 }
 
+//If no event is selected: return text
+// "Please select a party to learn more."
+//create a section element with: -heading showing event name and id
+//date (trimmed to YYYY-MM-DD), location, description
 function EventDetails() {
   if (!selectedEvent) {
     const $p = document.createElement("p");
@@ -71,6 +92,11 @@ function EventDetails() {
 
 //=== Render ===
 
+//get the #app element
+//set its content to: an <h1> heading "Part Planner"
+//a main area with two sections: "Upcoming Parties"
+//with placeholder for EventList
+//"Party Details" with placeholder for EventDetails
 function render() {
   const $app = document.querySelector("#app");
   $app.innerHTML = `
